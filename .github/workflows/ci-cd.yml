@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-upload:
+  build-and-release:
     runs-on: ubuntu-latest
     steps:
       - name: Check Out Repository
@@ -30,29 +30,11 @@ jobs:
           name: bloggy-adapter-jar
           path: adapter/build/libs/bloggy-adapter-*.jar
 
-
-  release:
-    needs: build-and-upload
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check Out Repository
-        uses: actions/checkout@v2
-
-      - name: Download JAR Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: bloggy-adapter-jar
-          path: adapter/build/libs
-
       - name: Create Release Notes
         run: |
-          VERSION=$(date -u +"%Y%m%d%H%M%S")
-          BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          ARTIFACT_SIZE=$(du -h adapter/build/libs/bloggy-adapter-*.jar | cut -f1)
-          echo "버전: $VERSION" > release-notes.txt
+          ARTIFACT_SIZE=$(du -h adapter/build/libs/bloggy-adapter-${{ env.VERSION }}.jar | cut -f1)
+          echo "버전: ${{ secrets.GITHUB_TOKEN }}" > release-notes.txt
           echo "아티팩트 크기: $ARTIFACT_SIZE" >> release-notes.txt
-          
-          echo "VERSION=$(date -u +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
       - name: Create Release
         id: create_release
@@ -72,6 +54,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adapter/build/libs/bloggy-adapter-*.jar
-          asset_name: bloggy-adapter-$VERSION.jar
+          asset_path: ./adapter/build/libs/bloggy-adapter-${{ env.VERSION }}.jar
+          asset_name: bloggy-adapter-${{ env.VERSION }}.jar
           asset_content_type: application/java-archive
