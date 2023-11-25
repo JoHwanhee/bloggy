@@ -51,6 +51,8 @@ jobs:
           ARTIFACT_SIZE=$(du -h adapter/build/libs/bloggy-adapter-*.jar | cut -f1)
           echo "버전: $VERSION" > release-notes.txt
           echo "아티팩트 크기: $ARTIFACT_SIZE" >> release-notes.txt
+          
+          echo "VERSION=$(date -u +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
       - name: Create Release
         id: create_release
