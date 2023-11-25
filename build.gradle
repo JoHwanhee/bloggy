@@ -1,0 +1,42 @@
+buildscript {
+    ext {
+        junitVersion = '5.7.0'
+        lombokVersion = '1.18.26'
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    group = 'com.hwanhee.bloggy'
+    version = '0.0.1-SNAPSHOT'
+
+    java {
+        sourceCompatibility = '17'
+    }
+
+    compileJava.options.encoding = 'UTF-8'
+
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+        testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
