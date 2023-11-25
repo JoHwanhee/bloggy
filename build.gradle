@@ -9,7 +9,7 @@ subprojects {
     apply plugin: 'java'
 
     group = 'com.hwanhee.bloggy'
-    version = '0.0.1-SNAPSHOT'
+    version = project.hasProperty('version') ? project.getProperty('version') : '0.0.1-SNAPSHOT'
 
     java {
         sourceCompatibility = '17'
