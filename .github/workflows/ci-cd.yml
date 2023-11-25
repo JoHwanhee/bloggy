@@ -40,7 +40,7 @@ jobs:
 
       - name: Create Release Notes
         run: |
-          VERSION=$(git describe --tags --abbrev=0)
+          VERSION=$(date -u +"%Y%m%d%H%M%S")
           BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           ARTIFACT_SIZE=$(du -h adapter/build/libs/bloggy-adapter-*.jar | cut -f1)
           echo "버전: $VERSION" > release-notes.txt
@@ -66,5 +66,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./adapter/build/libs/bloggy-adapter-*.jar
-          asset_name: bloggy-adapter-${{ steps.get_version.outputs.VERSION }}.jar
+          asset_name: bloggy-adapter-$VERSION.jar
           asset_content_type: application/java-archive
