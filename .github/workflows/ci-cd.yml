@@ -31,3 +31,42 @@ jobs:
         with:
           name: bloggy-adapter-jar
           path: adapter/build/libs/bloggy-adapter-*.jar
+
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v2
+
+      - name: Create Release Notes
+        run: |
+          VERSION=$(git describe --tags --abbrev=0)
+          BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          ARTIFACT_SIZE=$(du -h adapter/build/libs/bloggy-adapter-*.jar | cut -f1)
+          echo "버전: $VERSION" > release-notes.txt
+          echo "빌드 날짜: $BUILD_DATE" >> release-notes.txt
+          echo "아티팩트 크기: $ARTIFACT_SIZE" >> release-notes.txt
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: $VERSION
+          release_name: Release $VERSION
+          body_path: release-notes.txt
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./adapter/build/libs/bloggy-adapter-*.jar
+          asset_name: bloggy-adapter-${{ steps.get_version.outputs.VERSION }}.jar
+          asset_content_type: application/java-archive
