@@ -2,13 +2,12 @@ name: CI/CD Pipeline
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 jobs:
   build-and-upload:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check Out Repository
         uses: actions/checkout@v2
@@ -19,9 +18,8 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Extract version from Git tag
-        id: get_version
-        run: echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+      - name: Generate Version
+        run: echo "VERSION=$(date -u +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
       - name: Build with Gradle
         run: ./gradlew -Pversion=$VERSION :adapter:bootJar --no-build-cache
