@@ -9,6 +9,7 @@ include('application')
 // Driving & Driven Adapters
 include('adapters:rest')
 include('adapters:retrofit')
+include('adapters:jpa')
 
 // Configuration
 include('bootstrap')
