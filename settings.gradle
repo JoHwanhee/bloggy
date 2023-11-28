@@ -1,6 +1,14 @@
 rootProject.name = 'bloggy'
 
+// Core
 include('domain')
-include('infrastructure')
+
+// Ports
 include('application')
-include('adapter')
+
+// Driving & Driven Adapters
+include('adapters:rest')
+include('adapters:retrofit')
+
+// Configuration
+include('bootstrap')

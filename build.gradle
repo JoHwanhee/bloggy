@@ -1,9 +1,10 @@
 buildscript {
     ext {
-        junitVersion = '5.7.0'
+        junitVersion = '5.9.1'
         lombokVersion = '1.18.26'
     }
 }
+
 
 subprojects {
     apply plugin: 'java'

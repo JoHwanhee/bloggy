@@ -1,0 +1,4 @@
+kakao:
+  api:
+    key:
+    baseurl: https://dapi.kakao.com
