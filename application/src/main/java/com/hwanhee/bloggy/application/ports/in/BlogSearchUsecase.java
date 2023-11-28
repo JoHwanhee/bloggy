@@ -1,8 +1,8 @@
 package com.hwanhee.bloggy.application.ports.in;
 
 
-import com.hwanhee.bloggy.application.dto.BlogSearchResult;
+import com.hwanhee.bloggy.domain.blog.BlogSearchResult;
 
 public interface BlogSearchUsecase {
-    BlogSearchResult search(String query, int page);
+    BlogSearchResult search(BlogSearchCommand searchCommand);
 }

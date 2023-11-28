@@ -1,9 +1,9 @@
-package com.hwanhee.bloggy.application.dto;
+package com.hwanhee.bloggy.domain.blog;
 
 import lombok.Value;
 
 @Value(staticConstructor = "of")
-class BlogSearchResponse {
+public class Document {
     String title;
     String contents;
     String url;

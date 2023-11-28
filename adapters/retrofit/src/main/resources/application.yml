@@ -1,4 +1,4 @@
 kakao:
   api:
-    key:
+    key: ${KAKAO_API_KEY}
     baseurl: https://dapi.kakao.com

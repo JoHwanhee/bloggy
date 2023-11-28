@@ -1,6 +1,6 @@
 package com.hwanhee.bloggy.retrofit.client;
 
-import com.hwanhee.bloggy.retrofit.dto.BlogSearchResponse;
+import com.hwanhee.bloggy.retrofit.dto.BlogSearchResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
@@ -30,12 +30,12 @@ public class KakaoBlogSearchClient {
 		this.apiKey = apiKey;
 	}
 
-	public BlogSearchResponse searchBlog(String query, int page, int size) {
+	public BlogSearchResponseDto searchBlog(String query, int page, int size) {
 		try {
-			Response<BlogSearchResponse> response = api.searchBlog(query, "accuracy", page, size, "KakaoAK " + apiKey).execute();
+			Response<BlogSearchResponseDto> response = api.searchBlog(query, "accuracy", page, size, "KakaoAK " + apiKey).execute();
 
 			if (!response.isSuccessful()) {
-				throw new RuntimeException("API Request Failed. Code: " + response.code());
+				throw new RuntimeException("API Request Failed. Code: " + response.code() + response.errorBody());
 			}
 			return response.body();
 		} catch (IOException e) {
@@ -45,7 +45,7 @@ public class KakaoBlogSearchClient {
 
 	private interface KakaoBlogSearchApi {
 		@GET("/v2/search/blog")
-		Call<BlogSearchResponse> searchBlog(
+		Call<BlogSearchResponseDto> searchBlog(
 				@Query("query") String query,
 				@Query("sort") String sort,
 				@Query("page") int page,

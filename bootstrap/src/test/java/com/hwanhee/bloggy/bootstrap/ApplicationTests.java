@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("블로그 검색 API 테스트")
-class AdapterApplicationTests {
+class ApplicationTests {
 
     @LocalServerPort
     int port;
@@ -27,6 +27,9 @@ class AdapterApplicationTests {
     void test1() {
         given()
             .param("query", "테스트")
+            .param("size", 10)
+            .param("page", 1)
+
         .when()
             .get("/blogs")
         .then()

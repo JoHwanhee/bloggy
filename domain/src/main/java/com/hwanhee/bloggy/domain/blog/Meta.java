@@ -1,4 +1,4 @@
-package com.hwanhee.bloggy.adapters.rest.dto;
+package com.hwanhee.bloggy.domain.blog;
 
 import lombok.Value;
 
