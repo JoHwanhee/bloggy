@@ -1,3 +1,9 @@
+buildscript {
+    ext {
+        restassuredVersion = '5.3.2'
+    }
+}
+
 plugins {
     id 'java-library'
 }
@@ -11,6 +17,10 @@ dependencies {
     implementation project(':domain')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "io.rest-assured:rest-assured:${restassuredVersion}"
+    testImplementation "io.rest-assured:json-path:${restassuredVersion}"
 }
 
 tasks.register("prepareKotlinBuildScriptModel") {}

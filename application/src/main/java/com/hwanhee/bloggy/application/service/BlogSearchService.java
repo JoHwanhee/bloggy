@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 class BlogSearchService implements BlogSearchUsecase {
 
-
     private final BlogSearchServicePort blogSearchServicePort;
-
     private final ApplicationEventPublisher applicationEventPublisher;
 
     public BlogSearchService(@Qualifier("blogSearchServiceContainer") BlogSearchServicePort blogSearchServicePort, ApplicationEventPublisher applicationEventPublisher) {
