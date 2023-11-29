@@ -1,8 +1,8 @@
 package com.hwanhee.bloggy.application.service;
 
 
-import com.hwanhee.bloggy.application.ports.in.SearchKeywordUsecase;
-import com.hwanhee.bloggy.domain.blog.SearchEvent;
+import com.hwanhee.bloggy.application.ports.in.SearchKeywordCommandUsecase;
+import com.hwanhee.bloggy.domain.model.SearchEvent;
 import lombok.AllArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class SearchEventListener {
 
-    private final SearchKeywordUsecase searchedUsecase;
+    private final SearchKeywordCommandUsecase searchedUsecase;
 
     @EventListener
     public void eventListener(SearchEvent searchEvent) {
-        searchedUsecase.searched(searchEvent);
+        searchedUsecase.fireSearchEvent(searchEvent);
     }
 }

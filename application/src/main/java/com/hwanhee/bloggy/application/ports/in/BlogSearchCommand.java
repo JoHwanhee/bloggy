@@ -1,13 +1,13 @@
 package com.hwanhee.bloggy.application.ports.in;
 
 
-import com.hwanhee.bloggy.domain.blog.BlogSearchResult;
+import com.hwanhee.bloggy.domain.model.Sort;
 import lombok.Value;
 
 @Value(staticConstructor = "of")
 public class BlogSearchCommand {
     String query;
-    String accuracy;
+    Sort sort;
     int page;
     int size;
 }

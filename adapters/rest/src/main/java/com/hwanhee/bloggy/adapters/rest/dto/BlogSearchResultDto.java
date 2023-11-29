@@ -1,6 +1,6 @@
 package com.hwanhee.bloggy.adapters.rest.dto;
 
-import com.hwanhee.bloggy.domain.blog.BlogSearchResult;
+import com.hwanhee.bloggy.domain.model.BlogSearchResult;
 import lombok.Value;
 
 import java.util.ArrayList;

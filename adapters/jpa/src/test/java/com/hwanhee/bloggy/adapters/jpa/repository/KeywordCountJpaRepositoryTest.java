@@ -1,0 +1,43 @@
+package com.hwanhee.bloggy.adapters.jpa.repository;
+
+import com.hwanhee.bloggy.adapters.jpa.entity.KeywordCountEntity;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import static com.hwanhee.bloggy.adapters.jpa.Fixture.saveKeywordCounts;
+import static com.hwanhee.bloggy.adapters.jpa.Fixture.saveSearchKeywords;
+import static org.assertj.core.api.Assertions.assertThat;
+
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@EntityScan(basePackages = {"com.hwanhee.bloggy.adapters.jpa.entity"})
+@EnableJpaRepositories(basePackages = {"com.hwanhee.bloggy.adapters.jpa.repository"})
+class KeywordCountJpaRepositoryTest {
+
+    @Autowired
+    private SearchKeywordJpaRepository searchKeywordJpaRepository;
+
+    @Autowired
+    private KeywordCountJpaRepository sut;
+
+    @BeforeEach
+    void setUp() {
+        saveSearchKeywords(searchKeywordJpaRepository);
+        saveKeywordCounts(searchKeywordJpaRepository, sut);
+    }
+
+    @Test
+    @DisplayName("5분 이내의 검색어 카운트 조회")
+    void name() {
+        KeywordCountEntity keywordCountEntity = sut.findByKeyword("test1").get();
+        Long actual = keywordCountEntity.toKeywordCount().getCount();
+
+        assertThat(actual).isEqualTo(1);
+    }
+}

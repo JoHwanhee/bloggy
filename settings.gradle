@@ -11,5 +11,5 @@ include('adapters:rest')
 include('adapters:retrofit')
 include('adapters:jpa')
 
-// Configuration
+// boot
 include('bootstrap')

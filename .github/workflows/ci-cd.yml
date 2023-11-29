@@ -22,17 +22,22 @@ jobs:
         run: echo "VERSION=$(date -u +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
       - name: Build with Gradle
-        run: ./gradlew -Pversion=$VERSION :adapter:bootJar --no-build-cache
+        run: ./gradlew -Pversion=$VERSION :bootstrap:bootJar --no-build-cache
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          KAKAO_API_KEY: ${{ secrets.KAKAO_API_KEY }}
+
 
       - name: Upload JAR
         uses: actions/upload-artifact@v2
         with:
-          name: bloggy-adapter-jar
-          path: adapter/build/libs/bloggy-adapter-*.jar
+          name: bloggy-server-jar
+          path: bootstrap/build/libs/bloggy-server-*.jar
 
       - name: Create Release Notes
         run: |
-          ARTIFACT_SIZE=$(du -h adapter/build/libs/bloggy-adapter-${{ env.VERSION }}.jar | cut -f1)
+          ARTIFACT_SIZE=$(du -h bootstrap/build/libs/bloggy-server-${{ env.VERSION }}.jar | cut -f1)
           echo "버전: ${{ env.VERSION }}" > release-notes.txt
           echo "아티팩트 크기: $ARTIFACT_SIZE" >> release-notes.txt
 
@@ -54,6 +59,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adapter/build/libs/bloggy-adapter-${{ env.VERSION }}.jar
-          asset_name: bloggy-adapter-${{ env.VERSION }}.jar
+          asset_path: ./bootstrap/build/libs/bloggy-server-${{ env.VERSION }}.jar
+          asset_name: bloggy-server-${{ env.VERSION }}.jar
           asset_content_type: application/java-archive

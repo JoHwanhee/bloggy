@@ -3,7 +3,8 @@ package com.hwanhee.bloggy.application.service;
 import com.hwanhee.bloggy.application.ports.in.BlogSearchCommand;
 import com.hwanhee.bloggy.application.ports.in.BlogSearchUsecase;
 import com.hwanhee.bloggy.application.ports.out.BlogSearchServicePort;
-import com.hwanhee.bloggy.domain.blog.SearchEvent;
+import com.hwanhee.bloggy.domain.model.SearchEvent;
+import com.hwanhee.bloggy.domain.model.Sort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ class BlogSearchServiceTest {
     @Test
     @DisplayName("서치 키워드가 생성되면, 키워드 생성 도메인 이벤트가 발생한다.")
     void testKeywordCreationEvent() {
-        sut.search(BlogSearchCommand.of("검색", "", 0, 0));
+        sut.search(BlogSearchCommand.of("검색", Sort.ACCURACY, 0, 0));
 
         verify(eventPublisherMock).publishEvent(any(SearchEvent.class));
     }

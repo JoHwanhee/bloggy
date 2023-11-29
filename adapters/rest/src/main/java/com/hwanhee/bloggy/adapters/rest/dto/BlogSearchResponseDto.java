@@ -1,7 +1,6 @@
 package com.hwanhee.bloggy.adapters.rest.dto;
 
-import com.hwanhee.bloggy.domain.blog.BlogSearchResult;
-import com.hwanhee.bloggy.domain.blog.Document;
+import com.hwanhee.bloggy.domain.model.Document;
 import lombok.Value;
 
 @Value(staticConstructor = "of")
