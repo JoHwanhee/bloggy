@@ -27,6 +27,6 @@ public class BlogSearchServiceContainer implements BlogSearchServicePort {
             }
         }
 
-        throw new RuntimeException("No search service available");
+        return BlogSearchResult.empty();
     }
 }
