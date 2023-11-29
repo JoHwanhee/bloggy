@@ -11,6 +11,8 @@ public class ApplicationScheduler {
 
 
     private final KeywordCountViewGenerateUsecase searchKeywordViewGenerateUsecase;
+    private final Object lock = new Object();
+
 
     public ApplicationScheduler(@Qualifier("keywordCountViewGenerateService") KeywordCountViewGenerateUsecase searchKeywordViewGenerateUsecase) {
         this.searchKeywordViewGenerateUsecase = searchKeywordViewGenerateUsecase;
@@ -19,6 +21,8 @@ public class ApplicationScheduler {
     // 릴리즈에서는 5분마다 실행 => 트래픽 보고 적당히..
     @Scheduled(cron = "* * * * * *")
     public void gen() {
-        searchKeywordViewGenerateUsecase.gen();
+        synchronized(lock) {
+            searchKeywordViewGenerateUsecase.gen();
+        }
     }
 }
