@@ -21,13 +21,19 @@ jobs:
       - name: Generate Version
         run: echo "VERSION=$(date -u +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
+      - name: clean build test
+        run: ./gradlew clean build test
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          KAKAO_API_KEY: ${{ secrets.KAKAO_API_KEY }}
+
       - name: Build with Gradle
         run: ./gradlew -Pversion=$VERSION :bootstrap:bootJar --no-build-cache
         env:
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
           KAKAO_API_KEY: ${{ secrets.KAKAO_API_KEY }}
-
 
       - name: Upload JAR
         uses: actions/upload-artifact@v2
