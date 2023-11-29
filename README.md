@@ -1,10 +1,63 @@
 # Bloggy
-오픈 API를 이용한 "블로그 검색 서비스"
+- 오픈 API를 이용한 "블로그 검색 서비스"
+- [download jar](https://github.com/JoHwanhee/bloggy/releases/download/20231129124840/bloggy-server-20231129124840.jar)
 
 ## 개요
-이 프로젝트는 헥사고날 아키텍처(포트와 어댑터 아키텍처)를 따르며, 애플리케이션을 느슨하게 결합된 구성 요소로 만들어 소프트웨어 환경에 쉽게 연결할 수 있게 하는 것을 목표로 합니다.
+이 프로젝트는 헥사고날 아키텍처(포트와 어댑터 아키텍처)를 따릅니다.
 
 ![](https://blog.kakaocdn.net/dn/mXkmd/btrZbrdN2fy/ViqnJnt0KBq9BPDczezOAK/img.png)
+
+
+## API 명세
+### 1. 블로그 검색 API
+- Endpoint: GET /blogs
+- Description: 키워드를 통해 블로그를 검색합니다.
+- Query Parameters:
+  - query: 검색할 키워드 (필수)
+  - sort: 정렬 방식 (accuracy - 정확도순, recency - 최신순)
+  - page: 페이지 번호 (기본값: 1)
+  - size: 페이지당 항목 수 (기본값: 10)
+- Response:
+  - 200 OK: 성공
+  - 400 Bad Request: 잘못된 요청 (예: 유효하지 않은 페이지 번호)
+  - 500 Internal Server Error: 서버 오류
+- 예시
+```json
+GET /blogs?query=test query&sort=accuracy&page=1&size=10
+
+{
+    "meta": {
+        "totalCount": 153436,
+        "pageableCount": 1,
+        "end": false
+    },
+    "documents": [
+        {
+            "title": "블로그 차트 저품질 발생, 조회수 방문자수 감소, <b>테스트 33</b>... ",
+            "contents": "<b>33</b>~34주차 블로그 상황 요약 7657, 10560, 7562, 108,425 전반적인 하락 블로그 차트 사이트 점검으로... 3m 26s 받은 공감: 14 -&gt; 30 달린 댓글: 2 -&gt; 11 이웃 증감: 3 -&gt; 1 (매주 블로그지수 <b>테스트</b> 결과는 아래 링크)",
+            "url": "https://blog.naver.com/h_shuue/222973190503",
+            "blogName": "흥미 따라 일상기록소",
+            "thumbnailUrl": "",
+            "datetime": "20230102"
+        },
+        // ... 
+    ]
+}
+```
+   
+### 2. 인기 검색어 목록 API
+- Endpoint: GET /keywords
+- Description: 사용자들이 많이 검색한 키워드 목록을 제공합니다. (최대 10개, 검색 횟수 내림차순)
+- Response:
+  - 200 OK: 성공
+  - 각 검색어와 검색된 횟수가 포함된 목록
+- 예시
+```json
+GET /keywords
+```
+   
+   
+
 
 ## 프로젝트 구조
 멀티모듈 프로젝트로, 각 모듈은 다음과 같은 역할을 합니다:
@@ -28,7 +81,7 @@
 ## 블로그 검색 방식
 - 카카오와 네이버의 블로그 검색 API를 사용합니다.
 - 카카오를 1순위로 검색하며, 카카오 검색 결과가 없을 경우 네이버 검색 결과를 반환합니다.
-- 모두 없을경우 에러를 반환합니다.
+- 모두 없을경우 빈 목록을 반환합니다.
 
 ## 어플리케이션 이벤트 사용
 - 검색어 통계를 위해 검색어 쿼리 때마다 이벤트를 발생시킵니다.
@@ -94,5 +147,6 @@ export KAKAO_API_KEY=YOUR_KAKAO_API_KEY
 java -jar bootstrap/build/libs/bootstrap-$VERSION.jar
 ```
 
-## 실행 파일
-- 
+## 실행환경 
+- JDK 17
+
