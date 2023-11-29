@@ -73,6 +73,9 @@ public class SearchEventListener {
 - 스케줄러를 통해 통계 데이터를 View 용도의 테이블로 분리하여 업데이트 됩니다.
 - 통계 동작 방식이 큐 방식이기때문에 기본적으로 Thread-safe 하지만, 뷰 테이블에 업데이트 시 혹시 모를 상황을 대비하여 Optimistic Locking을 사용합니다.
 
+## 인수 테스트
+- RestAssured를 사용하여 인수 테스트를 진행합니다.
+
 ## 빌드 및 실행
 ```
 # 환경변수 세팅
