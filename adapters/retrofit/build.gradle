@@ -1,0 +1,27 @@
+buildscript {
+    ext {
+        retrofitVersion = '2.9.0'
+        okHttpVersion = '3.12.2'
+    }
+}
+
+plugins {
+    id 'java-library'
+}
+
+bootJar {
+    enabled = false
+}
+
+dependencies {
+    implementation project(':application')
+    implementation project(':domain')
+
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-jackson:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    implementation "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+}
+
+tasks.register("prepareKotlinBuildScriptModel") {}
+

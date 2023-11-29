@@ -1,0 +1,26 @@
+buildscript {
+    ext {
+        restassuredVersion = '5.3.2'
+    }
+}
+
+bootJar {
+    enabled = true
+    archiveFileName = "bloggy-server-${version}.jar"
+}
+
+dependencies {
+    implementation project(':adapters:rest')
+    implementation project(':adapters:retrofit')
+    implementation project(':adapters:jpa')
+    implementation project(':application')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "io.rest-assured:rest-assured:${restassuredVersion}"
+    testImplementation "io.rest-assured:json-path:${restassuredVersion}"
+}
+
+tasks.register("prepareKotlinBuildScriptModel") {}

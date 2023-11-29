@@ -1,0 +1,11 @@
+kakao:
+  api:
+    key: ${KAKAO_API_KEY}
+    baseurl: https://dapi.kakao.com
+
+
+naver:
+  api:
+    client-id: ${NAVER_CLIENT_ID}
+    client-secret: ${NAVER_CLIENT_SECRET}
+    baseurl: https://openapi.naver.com
