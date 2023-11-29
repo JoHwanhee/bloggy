@@ -24,7 +24,7 @@
   - 400 Bad Request: 잘못된 요청 (예: 유효하지 않은 페이지 번호)
   - 500 Internal Server Error: 서버 오류
 - 예시
-```json
+```
 GET /blogs?query=test query&sort=accuracy&page=1&size=10
 
 {
@@ -54,8 +54,51 @@ GET /blogs?query=test query&sort=accuracy&page=1&size=10
   - 200 OK: 성공
   - 각 검색어와 검색된 횟수가 포함된 목록
 - 예시
-```json
+```
 GET /keywords
+
+[
+    {
+        "keyword": "테스트",
+        "count": 12
+    },
+    {
+        "keyword": "hello word aa",
+        "count": 7
+    },
+    {
+        "keyword": "",
+        "count": 4
+    },
+    {
+        "keyword": "ㅁㅁㄴㅇdaㅇㄹ ",
+        "count": 3
+    },
+    {
+        "keyword": "hi",
+        "count": 1
+    },
+    {
+        "keyword": "hello word",
+        "count": 1
+    },
+    {
+        "keyword": "hello  aa word aa",
+        "count": 1
+    },
+    {
+        "keyword": "감자 ",
+        "count": 1
+    },
+    {
+        "keyword": "감자",
+        "count": 1
+    },
+    {
+        "keyword": "테스트  ",
+        "count": 1
+    }
+]
 ```
    
    
