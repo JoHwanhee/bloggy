@@ -1,6 +1,6 @@
 # Bloggy
 - 오픈 API를 이용한 "블로그 검색 서비스"
-- [download jar](https://github.com/JoHwanhee/bloggy/releases/download/20231129124840/bloggy-server-20231129124840.jar)
+- [download jar](https://github.com/JoHwanhee/bloggy/releases/download/20231129130401/bloggy-server-20231129130401.jar)
 
 ## 개요
 이 프로젝트는 헥사고날 아키텍처(포트와 어댑터 아키텍처)를 따릅니다.
